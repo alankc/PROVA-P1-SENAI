@@ -15,6 +15,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Pkg1Interface.msg"
   "srv/SensorReaderData.srv"
   "srv/SensorReaderClean.srv"
+  "action/PrimeNumber.action"
   DEPENDENCIES std_msgs
 )
 

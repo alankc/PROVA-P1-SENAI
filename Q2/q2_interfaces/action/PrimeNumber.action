@@ -1,0 +1,6 @@
+uint16 nth_prime_number
+---
+uint64 nth_prime_number_value
+---
+uint64 current_number_in_test
+uint64 current_nth_prime_number
