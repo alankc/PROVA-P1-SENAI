@@ -3,7 +3,7 @@
 <package format="3">
   <name>q2_interfaces</name>
   <version>0.0.1</version>
-  <description>INterfaces usadas nos pacotes 1, 2 e 3</description>
+  <description>Interfaces usadas nos pacotes 1, 2 e 3</description>
   <maintainer email="cechinel.a.k@gmail.com">Alan Kunz Cechinel</maintainer>
   <license>TODO: License declaration</license>
 
