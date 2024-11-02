@@ -4,7 +4,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "q2_interfaces/msg/pkg1_interface.hpp"
 
-namespace ram_informer
+namespace pkg_1
 {
 class RAMInformer : public rclcpp::Node
 {

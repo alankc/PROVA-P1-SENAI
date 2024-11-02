@@ -3,9 +3,9 @@
 #include <fstream>
 #include <string>
 
-using namespace ram_informer;
+using namespace pkg_1;
 
-RAMInformer::RAMInformer() : Node("pkg_1")
+RAMInformer::RAMInformer() : Node("ram_informer")
 {   
     this->declare_parameter<std::string>("use_mem_free_as", "MemAvailable");
 
