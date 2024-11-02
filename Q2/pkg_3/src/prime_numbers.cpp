@@ -1,10 +1,15 @@
-#include <cstdio>
+#include "pkg_3/prime_numbers.hpp"
 
-int main(int argc, char ** argv)
+using namespace pkg_3;
+
+PrimeNumbers::PrimeNumbers() : Node("prime_numbers")
 {
-  (void) argc;
-  (void) argv;
 
-  printf("hello world pkg_3 package\n");
+}
+
+int main(int argc, char* argv[]) {
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<PrimeNumbers>());
+  rclcpp::shutdown();
   return 0;
 }
