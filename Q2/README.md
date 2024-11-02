@@ -109,3 +109,19 @@ ros2 service call /clear_buffer q2_interfaces/srv/SensorReaderClean
 
 Este pacote está implementado na pasta [pkg_3](pkg_3)
 
+Neste pacote, implementei uma solução que vai além do solicitado: ao chamar a ação, é possível solicitar o enésimo número primo. O feedback indicará a quantidade de números primos já encontrados e o número que está sendo testado na iteração atual. Como resultado final, a ação fornecerá o valor do enésimo número primo.
+
+### Terminal 1
+
+Para executar o nó:
+```bash
+ros2 run pkg_3 prime_numbers
+```
+
+### Terminal 2
+Para testar o action:
+```bash
+ros2 action send_goal /prime_number q2_interfaces/action/PrimeNumber 'nth_prime_number: 10' --feedback
+```
+
+Você pode testar o cancelamento do action apertando `Ctrl+c`. No Terminal 1 aparecerá mensagems a respeito do cancelamento.
