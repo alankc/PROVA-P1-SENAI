@@ -15,6 +15,7 @@ services:
       - ./pkg_2:/home/isi_user/ws_ros/src/pkg_2
       - ./pkg_3:/home/isi_user/ws_ros/src/pkg_3
       - ./q2_interfaces:/home/isi_user/ws_ros/src/q2_interfaces
+      - ./.vscode:/home/isi_user/ws_ros/.vscode
   
   cpu_terminal:
     extends:

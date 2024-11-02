@@ -1,0 +1,23 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/isi_user/ws_ros/install/q2_interfaces/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/isi_user/ws_ros/src/pkg_1/include/**",
+        "/home/isi_user/ws_ros/src/pkg_3/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
