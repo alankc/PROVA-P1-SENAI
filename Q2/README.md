@@ -47,6 +47,34 @@ Se você não fizer isso, não conseguirá rodar os pacotes e as interfaces cust
 
 Este pacote está implementado na pasta [pkg_1](pkg_1)
 
+Para executar o nó:
+```bash
+ros2 run pkg_1 RAMInformer
+```
+
+você pode escolher qual dado do sistema o nó utilizará para considerar a memória livre usando:
+```bash
+ros2 run pkg_1 RAMInformer --ros-args -p use_mem_free_as:=<MEM_MODE>
+```
+Substitua `<MEM_MODE>` por `MemFree` ou `MemAvailable`.
+
+- `MemFree`: Representa a quantidade de memória física livre no sistema, ou seja, que não está sendo usada ativamente para nada.
+- `MemAvailable`: Inclui `MemFree` e a memória usada para cache de disco e buffers, que pode ser rapidamente liberada pelo kernel se outros processos precisarem de mais memória.
+
+A opção `MemAvailable` é o padrão que o Kubuntu utiliza em seu widget de memória.
+
+Para ler os dados sendo publicados utilize:
+```bash
+ros2 topic echo /ram_informer
+```
+Você receberá prints como este:
+```bash
+mem_total: 31.08568572998047 # Total em GB
+mem_used: 5.3719940185546875 # Total utilizado em GB
+percentage_in_use: 17.299999237060547 # Percentual utilizado em %
+
+```
+
 ## Pacote "2" deve simular a leitura de um sensor com uma taxa de amostragem de 1 Hz. Os dados do sensor devem passar por um filtro de média móvel considerando os últimos 5 valores adquiridos pelo sensor. Esse pacote deve prover duas interfaces de serviço, a primeira deve retornar os últimos 64 resultados gerados pelo filtro, e a segunda deve zerar os dados gerados pelo filtro.
 
 Este pacote está implementado na pasta [pkg_2](pkg_2)
