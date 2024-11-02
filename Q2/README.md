@@ -36,7 +36,7 @@ Execute o seguinte comando para buildar todos os pacotes:
 colcon build
 ```
 
-Depois de buildar, não se esqueça se fazer o source nos dois terminais:
+Depois de buildar, não se esqueça de fazer o source nos dois terminais:
 ```bash
 source install/setup.bash
 ```
@@ -47,6 +47,7 @@ Se você não fizer isso, não conseguirá rodar os pacotes e as interfaces cust
 
 Este pacote está implementado na pasta [pkg_1](pkg_1)
 
+### Terminal 1
 Para executar o nó:
 ```bash
 ros2 run pkg_1 RAMInformer
@@ -63,6 +64,7 @@ Substitua `<MEM_MODE>` por `MemFree` ou `MemAvailable`.
 
 A opção `MemAvailable` é o padrão que o Kubuntu utiliza em seu widget de memória.
 
+### Terminal 2
 Para ler os dados sendo publicados utilize:
 ```bash
 ros2 topic echo /ram_informer
@@ -78,6 +80,30 @@ percentage_in_use: 17.299999237060547 # Percentual utilizado em %
 ## Pacote "2" deve simular a leitura de um sensor com uma taxa de amostragem de 1 Hz. Os dados do sensor devem passar por um filtro de média móvel considerando os últimos 5 valores adquiridos pelo sensor. Esse pacote deve prover duas interfaces de serviço, a primeira deve retornar os últimos 64 resultados gerados pelo filtro, e a segunda deve zerar os dados gerados pelo filtro.
 
 Este pacote está implementado na pasta [pkg_2](pkg_2)
+
+### Terminal 1
+Para executar o nó:
+```bash
+ros2 run pkg_2 sensor_reader
+```
+
+você pode escolher qual o periodo de amostragem do sensor com:
+```bash
+ros2 run pkg_2 sensor_reader --ros-args -p sensor_period:=<SENSOR_PERIOD>
+```
+Substitua `<SENSOR_PERIOD>` por um número com ponto flutuante `e.g., 1.0`. O valor padrão é `1.0`.
+
+### Terminal 2
+
+Para testar o serviço que provê os últimos 64 resultados gerados pelo filtro:
+```bash
+ros2 service call /get_buffer q2_interfaces/srv/SensorReaderData
+```
+
+Para testar o serviço que zera os dados gerados pelo filtro:
+```bash
+ros2 service call /clear_buffer q2_interfaces/srv/SensorReaderClean
+```
 
 ## Pacote "3" deve encontrar, via requisição de ação, os décimo número primo, gerando respostas intermediárias pela interface de ação e também o resultado final.
 
