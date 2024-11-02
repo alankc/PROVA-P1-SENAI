@@ -20,13 +20,13 @@ docker compose up <MODE> -d
 Caso você tiver uma GPU nvidia configurada para o docker,  substitua `<MODE>` por `gpu`. Caso não tiver, substitua por `cpu`.
 
 
-Você precisará de dois terminais para testar os pacotes, para executar o bash dentro dos containers em dois terminais faça o seguinte comando nos dois terminais fora do container:
+Você precisará de dois terminais para testar os pacotes. Para executar o bash dentro dos containers em dois terminais faça o seguinte comando nos dois terminais fora do container:
 
 ```bash
 docker compose exec <MODE> bash
 ```
 
-Após o comando você verá algo do tipo
+Após o comando você verá algo do tipo:
 ```bash
 isi_user@seu_host:~/ws_ros$
 ```
@@ -87,7 +87,7 @@ Para executar o nó:
 ros2 run pkg_2 sensor_reader
 ```
 
-você pode escolher qual o periodo de amostragem do sensor com:
+Você pode escolher o período de amostragem do sensor com:
 ```bash
 ros2 run pkg_2 sensor_reader --ros-args -p sensor_period:=<SENSOR_PERIOD>
 ```
@@ -124,4 +124,4 @@ Para testar o action:
 ros2 action send_goal /prime_number q2_interfaces/action/PrimeNumber 'nth_prime_number: 10' --feedback
 ```
 
-Você pode testar o cancelamento do action apertando `Ctrl+c`. No Terminal 1 aparecerá mensagems a respeito do cancelamento.
+Você pode testar o cancelamento do action apertando `Ctrl+c`. No Terminal 1 aparecerão mensagems a respeito do cancelamento.
