@@ -10,11 +10,15 @@ class SensorReader(Node):
 
     def __init__(self):
         super().__init__('sensor_reader')
-        #self.publisher_ = self.create_publisher(String, 'topic', qos_profile_system_default)
+
         self.circular_buffer_sensor = deque(maxlen=5)
         self.circular_buffer_service = deque(maxlen=64)
 
-        timer_period = 1  # seconds
+        self.declare_parameter('sensor_period', 1.0)
+        timer_period = self.get_parameter('sensor_period').get_parameter_value().double_value
+        if (timer_period < 0):
+            timer_period = 1.0
+
         self.timer = self.create_timer(timer_period, self.sensor_simulation)
 
         self.srv_clear = self.create_service(SensorReaderClean, '/clear_buffer', self.clear_buffer)
