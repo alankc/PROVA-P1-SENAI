@@ -24,14 +24,14 @@ LOOP PRINCIPAL
         SE contador_de_etapas < 10
             mostrar dados para adicionar etapa no LCD
         SENÃO
-            informar que não é possivel adicionar mais etapas
+            informar que não é possível adicionar mais etapas
 
     SE estado == rodando
 
         ler dados do termopar
         ler dados do motor
 
-        mostrar dados desejados e atuais da etapa atual
+        mostrar dados desejados e atuais da etapa atual no LCD
 
         //Comportamento de termostato
         SE temperatura < etapas[etapa_atual].temperatura - 5%
@@ -45,25 +45,26 @@ LOOP PRINCIPAL
             desativar queimador
             teste_queimador =  verdadeiro
 
-
         // Alguns controladores exigem que o envio
         // contínuo do setpoint para continuar atuando
-        enviar setpoint para controlador do motor de etapas[etapa_atual].rpm
+        enviar setpoint etapas[etapa_atual].rpm para controlador do motor
 
-        SE contador_de_tempo == etapas[etapa_atual].tempo
+       SE contador_de_tempo == etapas[etapa_atual].tempo
             etapa_atual++
 
-            SE etapa_atual >= contador_de_etapas:
+        SE contador_de_tempo >= 5 E temperatura < etapas[etapa_atual].temperatura
+            soar alarme de temperatura em falha
+
+            SE etapa_atual == contador_de_etapas:
                 estado = parado
                 DESABILITA_TIMER()
-
+                soar alarme de término
 
     SE estado == pausado
-
         ler dados do termopar
         ler dados do motor
 
-        mostrar dados desejados e atuais da etapa atual
+        mostrar dados desejados e atuais da etapa atual no LCD
 
         desativar queimador
         desativar motor
