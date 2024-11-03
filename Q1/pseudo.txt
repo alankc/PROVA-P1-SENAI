@@ -1,0 +1,108 @@
+INICIAR
+
+    Criar vetor de etapas[10]
+    Criar variável estado = parado
+    Criar variável etapa_atual = 0
+    Criar variável contador_de_etapas = 0
+    Criar variável contador_de_tempo = 0
+    Criar variável teste_queimador = falso
+
+    Configurar pinos de interrupção externa para cada botão
+    Configurar tipo de disparo (ex: borda de subida ou descida)
+    Habilitar interrupção externa
+
+HABILITA_TIMER()
+    desabilitar interrupção por timer
+    configurar interrupção por timer a cada 1 minuto
+    habilitar interrupção por timer
+
+DESABILITA_TIMER()
+    desabilitar interrupção por timer
+
+LOOP PRINCIPAL
+    SE estado == parado
+        SE contador_de_etapas < 10
+            mostrar dados para adicionar etapa no LCD
+        SENÃO
+            informar que não é possivel adicionar mais etapas
+
+    SE estado == rodando
+
+        ler dados do termopar
+        ler dados do motor
+
+        mostrar dados desejados e atuais da etapa atual
+
+        //Comportamento de termostato
+        SE temperatura < etapas[etapa_atual].temperatura - 5%
+            teste_queimador =  falso
+            ativar queimador
+
+        SE temperatura < etapas[etapa_atual].temperatura + 5% E teste_queimador == falso
+            ativar queimador
+
+        SE temperatura >= etapas[etapa_atual].temperatura + 5% E teste_queimador == falso
+            desativar queimador
+            teste_queimador =  verdadeiro
+
+
+        // Alguns controladores exigem que o envio
+        // contínuo do setpoint para continuar atuando
+        enviar setpoint para controlador do motor de etapas[etapa_atual].rpm
+
+        SE contador_de_tempo == etapas[etapa_atual].tempo
+            etapa_atual++
+
+            SE etapa_atual >= contador_de_etapas:
+                estado = parado
+                DESABILITA_TIMER()
+
+
+    SE estado == pausado
+
+        ler dados do termopar
+        ler dados do motor
+
+        mostrar dados desejados e atuais da etapa atual
+
+        desativar queimador
+        desativar motor
+
+    Repetir LOOP PRINCIPAL
+
+INTERRUPÇÃO EXTERNA (Handler de Interrupção)
+
+    SE estado == parado:
+        SE for botão de +/- de temperatura, tempo ou RPM
+            Atualizar a variável correspondente
+
+        SE for botão de + etapa e contador_de_etapas < 10
+            Salva estrutura contendo os dados da etapa no vetor etapas
+            contador_de_etapas++
+
+        SE for botão de - etapa e contador_de_etapas > 0
+            Remove a última etapa
+            contador_de_etapas--
+
+        SE botão Começar/Pausar e contador_de_etapas > 0
+            etapa_atual = 0
+            contador_de_tempo = 0
+            contador_de_etapas = 0
+            estado = rodando
+            HABILITA_TIMER()
+
+    SE botão Começar/Pausar e estado == rodando
+        estado = pausado
+        DESABILITA_TIMER()
+
+    SE botão Começar/Pausar e estado == pausado
+        estado = rodando
+        HABILITA_TIMER()
+
+    SE botão Parar e estado == rodando
+        estado = parado
+        DESABILITA_TIMER()
+
+
+INTERRUPÇÃO TIMER (Handler de Interrupção)
+    contador_de_tempo++;
