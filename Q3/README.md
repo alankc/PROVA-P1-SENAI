@@ -27,7 +27,7 @@ decrypted msg: ==>Sistemas Embarcados<==
 
 Para os testes, utilizei o `unittest`, que é um módulo padrão e não precisa de instalação.
 
-Os testes unitários estão implementados no arquivo `teste.py`. Para testá-los, basta executar:
+Os testes unitários estão implementados no arquivo `test.py`. Para testá-los, basta executar:
 
 ```bash
 python3 test.py
