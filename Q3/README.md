@@ -30,5 +30,5 @@ Para os testes, utilizei o `unittest`, que é um módulo padrão e não precisa 
 Os testes unitários estão implementados no arquivo `teste.py`. Para testá-los, basta executar:
 
 ```bash
-python3 teste.py
+python3 test.py
 ```
